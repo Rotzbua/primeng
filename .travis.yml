@@ -1,5 +1,10 @@
 language: node_js
 sudo: required
+dist: xenial
+
+services:
+  - xvfb
+
 node_js:
    - node
 
@@ -10,7 +15,6 @@ before_script:
 before_install:
    - export CHROME_BIN=chromium-browser
    - export DISPLAY=:99.0
-   - sh -e /etc/init.d/xvfb start
 
 script: # the build step
    - node_modules/.bin/ng test --watch=false
