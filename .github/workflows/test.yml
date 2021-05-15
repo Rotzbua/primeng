@@ -20,6 +20,6 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
             - run: npm install
-            - run: ng test --watch=false --browsers=ChromeHeadless
+            - run: npm run test-headless
               env:
                   CI: true
