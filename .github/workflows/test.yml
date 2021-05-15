@@ -11,15 +11,22 @@ jobs:
 
         strategy:
             matrix:
-                node-version: ['14', '16']
+                node-version: [ '14', '16' ]
 
         steps:
-            - uses: actions/checkout@v2
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v2
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - run: npm install
-            - run: npm run test-headless
-              env:
-                  CI: true
+            -   uses: actions/checkout@v2
+            -   name: Cache node modules
+                uses: actions/cache@v2
+                env:
+                    cache-name: cache-node-modules
+                with:
+                    # npm cache files are stored in `~/.npm` on Linux/macOS
+                    path: ~/.npm
+            -   name: Use Node.js ${{ matrix.node-version }}
+                uses: actions/setup-node@v2
+                with:
+                    node-version: ${{ matrix.node-version }}
+            -   run: npm install
+            -   run: npm run test-headless
+                env:
+                    CI: true
